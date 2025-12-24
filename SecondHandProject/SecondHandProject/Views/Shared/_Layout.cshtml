@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<SecondHandProject.Models.Entities.ApplicationUser> SignInManager
+@inject UserManager<SecondHandProject.Models.Entities.ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - SecondHandProject</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="~/blog/css/styles.css" />
+</head>
+
+<body class="bg-light">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm py-3">
+        <div class="container">
+
+            <!-- BRAND -->
+            <a class="navbar-brand fw-bold fs-5" href="/">
+                İkinci El Eşya Satış Platformu
+            </a>
+
+            <!-- MOBILE TOGGLER -->
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- MENU -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav me-auto align-items-lg-center gap-lg-2">
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="/">Anasayfa</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="/Categories/IndexUser">
+                            Kategoriler
+                        </a>
+                    </li>
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium" href="/Products/MyProducts">
+                                Ürünlerim
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm px-3 ms-lg-2"
+                               href="/Products/Create">
+                                + Ürün Ekle
+                            </a>
+                        </li>
+                    }
+
+
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item ms-lg-3">
+                            <a class="nav-link text-danger fw-semibold"
+                               href="/Admin/Products">
+                                Admin Paneli
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+
+                <!-- LOGIN / USER MENU -->
+                <div class="d-flex align-items-center">
+                    <partial name="_LoginPartial" />
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <main class="container py-4">
+        @RenderBody()
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/blog/js/script.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

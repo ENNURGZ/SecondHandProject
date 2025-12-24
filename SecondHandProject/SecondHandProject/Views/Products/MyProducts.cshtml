@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SecondHandProject.ViewModels.ProductViewModels.ProductListViewModel>
+
+@{
+    ViewData["Title"] = "Ürünlerim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold">Ürünlerim</h2>
+
+        <a href="/Products/Create" class="btn btn-success">
+            + Yeni Ürün Ekle
+        </a>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            Henüz bir ürün eklememişsiniz.
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px">Fotoğraf</th>
+                            <th>Başlık</th>
+                            <th>Kategori</th>
+                            <th>Fiyat</th>
+                            <th style="width: 150px;">İşlemler</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImagePath))
+                                    {
+                                        <img src="~/images/products/@item.ImagePath"
+                                             class="card-img-top"
+                                             style="height:200px; object-fit:cover;" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/no-image.png"
+                                             class="card-img-top"
+                                             style="height:200px; object-fit:cover;" />
+                                    }
+
+                                </td>
+
+                                <td>@item.Title</td>
+
+                                <td>@item.CategoryName</td>
+
+                                <td>@item.Price ₺</td>
+
+                                <td>
+                                    <a href="/Products/Details/@item.Id"
+                                       class="btn btn-sm btn-outline-secondary w-100 mb-1">
+                                        Detay
+                                    </a>
+
+                                    <a href="/Products/Edit/@item.Id"
+                                       class="btn btn-sm btn-primary w-100 mb-1">
+                                        Düzenle
+                                    </a>
+
+                                    <a href="/Products/Delete/@item.Id"
+                                       onclick="return confirm('Bu ürünü silmek istediğinizden emin misiniz?');"
+                                       class="btn btn-sm btn-danger w-100">
+                                        Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    }
+
+</div>

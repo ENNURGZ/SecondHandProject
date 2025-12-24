@@ -1,0 +1,63 @@
+﻿@model SecondHandProject.ViewModels.ProductViewModels.ProductDetailsViewModel
+
+@{
+    ViewData["Title"] = "Ürün Detayı";
+}
+
+<div class="container mt-4">
+
+    <div class="row">
+
+        <!-- FOTOĞRAF BÖLÜMÜ -->
+        <div class="col-md-6">
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <img src="~/images/products/@Model.ImagePath"
+                     class="img-fluid rounded" />
+            }
+            else
+            {
+                <img src="~/images/no-image.png"
+                     class="img-fluid rounded" />
+            }
+
+        </div>
+
+        <!-- BİLGİ BÖLÜMÜ -->
+        <div class="col-md-6">
+
+            <h2 class="fw-bold">@Model.Title</h2>
+
+            <p class="text-muted">@Model.CategoryName</p>
+
+            <h3 class="fw-bold text-primary">@Model.Price ₺</h3>
+
+            <hr />
+
+            <h5 class="fw-semibold">Açıklama</h5>
+            <p>@Model.Description</p>
+
+            <hr />
+
+            <h5 class="fw-semibold">Satıcı Bilgileri</h5>
+            <p class="mb-1"><strong>@Model.SellerName</strong></p>
+            <p class="text-muted">@Model.SellerEmail</p>
+
+            <a href="mailto:@Model.SellerEmail" class="btn btn-primary mt-3 w-100">
+                Satıcıyla İletişime Geç
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    img:hover {
+        transform: scale(1.02);
+        transition: all .3s ease;
+    }
+</style>
+
+

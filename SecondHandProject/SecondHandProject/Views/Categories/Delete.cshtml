@@ -1,0 +1,46 @@
+﻿@model SecondHandProject.ViewModels.CategoryViewModel
+@{
+    ViewData["Title"] = "Kategori Sil";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+
+    <h2 class="fw-bold text-danger mb-3">Kategori Sil</h2>
+
+    <div class="alert alert-warning">
+        <strong>@Model.Name</strong> kategorisi
+    </div>
+
+    @if (Model.HasProducts)
+    {
+        <a asp-action="Index" class="btn btn-secondary">
+            Geri Dön
+        </a>
+    }
+    else
+    {
+        <form asp-action="DeleteConfirmed" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <button type="submit" class="btn btn-danger">
+                Evet, Sil
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary ms-2">
+                İptal
+            </a>
+        </form>
+    }
+
+</div>

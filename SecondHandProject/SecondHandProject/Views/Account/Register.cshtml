@@ -1,0 +1,46 @@
+﻿@model SecondHandProject.ViewModels.AccountViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Kayıt Ol";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5" style="max-width: 420px;">
+    <div class="card shadow">
+        <div class="card-body">
+            <h3 class="text-center mb-4">Kayıt Ol</h3>
+
+            <form asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label class="form-label">Ad Soyad</label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Şifre</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Şifre Tekrar</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button class="btn btn-dark w-100">Kayıt Ol</button>
+            </form>
+
+            <div asp-validation-summary="All" class="text-danger mt-2"></div>
+        </div>
+    </div>
+</div>

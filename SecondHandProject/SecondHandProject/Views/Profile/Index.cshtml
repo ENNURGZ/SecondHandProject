@@ -1,0 +1,59 @@
+﻿@model SecondHandProject.ViewModels.Profile.ProfileIndexVm
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between mb-4">
+        <h2 class="fw-bold">Profilim</h2>
+        <div>
+            <a href="/Profile/Edit" class="btn btn-outline-dark">Düzenle</a>
+            <a href="/Profile/ChangePassword" class="btn btn-dark">Şifre Değiştir</a>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <p><strong>Ad Soyad:</strong> @Model.FullName</p>
+            <p><strong>E-posta:</strong> @Model.Email</p>
+            <p><strong>Kullanıcı Adı:</strong> @Model.UserName</p>
+        </div>
+    </div>
+
+    <h5 class="fw-bold mb-3">Ürünlerim</h5>
+
+    @if (!Model.Products.Any())
+    {
+        <div class="alert alert-light border">Henüz ürün eklemediniz.</div>
+    }
+    else
+    {
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Başlık</th>
+                    <th>Fiyat</th>
+                    <th>Tarih</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model.Products)
+                {
+                    <tr>
+                        <td>@p.Title</td>
+                        <td>@p.Price ₺</td>
+                        <td>@p.CreatedAt.ToShortDateString()</td>
+                        <td class="text-end">
+                            <a href="/Products/Edit/@p.Id" class="btn btn-sm btn-outline-primary">Düzenle</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

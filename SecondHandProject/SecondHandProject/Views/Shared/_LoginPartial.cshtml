@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<SecondHandProject.Models.Entities.ApplicationUser> SignInManager
+@inject UserManager<SecondHandProject.Models.Entities.ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+
+    <div class="d-flex align-items-center gap-2">
+
+        <span class="text-muted small">
+            Merhaba, <strong>@user?.Email</strong>
+        </span>
+
+        <a class="btn btn-outline-dark btn-sm"
+           href="/Profile">
+            Profilim
+        </a>
+
+        <form method="post"
+              asp-controller="Account"
+              asp-action="Logout">
+            <button type="submit"
+                    class="btn btn-outline-danger btn-sm">
+                Çıkış
+            </button>
+        </form>
+
+    </div>
+}
+else
+{
+    <a class="btn btn-outline-primary btn-sm me-2"
+       href="/Account/Login">
+        Giriş Yap
+    </a>
+
+    <a class="btn btn-primary btn-sm"
+       href="/Account/Register">
+        Kayıt Ol
+    </a>
+}

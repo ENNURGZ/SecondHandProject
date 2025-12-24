@@ -1,0 +1,115 @@
+﻿@model IEnumerable<SecondHandProject.ViewModels.ProductViewModels.ProductListViewModel>
+
+@{
+    ViewData["Title"] = "Anasayfa";
+    var selectedCategory = ViewBag.SelectedCategory as int?;
+    var categories = ViewBag.Categories as IEnumerable<SecondHandProject.Models.Entities.Category>;
+}
+
+<!-- WELCOME CARD -->
+<div class="d-flex justify-content-center align-items-center" style="min-height: 30vh;">
+    <div class="card shadow-lg border-0 text-center p-5 welcome-card">
+
+        <h1 class="fw-bold mb-3">
+            Hoş Geldiniz
+        </h1>
+
+        <p class="text-muted mb-4 fs-5">
+            İkinci el ürünleri keşfetmeye başlayın.
+            Kategorilere göre filtreleyin, uygun fiyatlı ürünleri bulun.
+        </p>
+
+    </div>
+</div>
+
+
+<!-- KATEGORİ FİLTRESİ -->
+<div class="mb-4 ">
+    <div class="d-flex flex-wrap gap-2 justify-content-center">
+
+        <a href="/Home/Index"
+           class="btn btn-sm @(selectedCategory == null ? "btn-primary" : "btn-outline-primary")">
+            Tümü
+        </a>
+
+        @if (categories != null)
+        {
+            foreach (var c in categories)
+            {
+                <a href="/Home/Index?categoryId=@c.Id"
+                   class="btn btn-sm @(selectedCategory == c.Id ? "btn-primary" : "btn-outline-primary")">
+                    @c.Name
+                </a>
+            }
+        }
+    </div>
+</div>
+
+<!-- ÜRÜN KARTLARI -->
+<div class="row g-4 justify-content-center">
+
+
+    @if (!Model.Any())
+    {
+        <div class="col-12">
+            <div class="alert alert-info">
+                Henüz listelenecek ürün bulunmuyor.
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card h-100 product-card border-0 shadow-sm">
+
+                    <div class="product-image-wrapper">
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="~/images/products/@item.ImagePath"
+                                 class="card-img-top product-image" />
+                        }
+                        else
+                        {
+                            <img src="~/images/no-image.png"
+                                 class="card-img-top product-image" />
+                        }
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <span class="text-muted small mb-1">
+                            @item.CategoryName
+                        </span>
+
+                        <h6 class="fw-semibold mb-2">
+                            @item.Title
+                        </h6>
+
+                        <div class="mt-auto">
+                            <div class="fw-bold fs-5 mb-3">
+                                @item.Price ₺
+                            </div>
+
+                            <a href="/Products/Details/@item.Id"
+                               class="btn btn-outline-primary btn-sm w-100">
+                                İncele
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    }
+
+</div>
+
+<style>
+    .product-image {
+        height: 220px;
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
+

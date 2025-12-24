@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <title>Admin Paneli - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/admin/css/styles.css" />
+</head>
+<body class="bg-light">
+
+
+    <div class="d-flex">
+
+
+        <div class="bg-dark text-white p-3" style="width:250px; min-height:100vh;">
+            <h4 class="fw-bold">Admin Paneli</h4>
+            <ul class="nav flex-column mt-4">
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white" href="/Admin/Products">Ürün Yönetimi</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white" href="/Admin/Users">Kullanıcı Yönetimi</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white" href="/Categories">
+                        Kategori Yönetimi
+                    </a>
+                </li>
+
+                <li class="nav-item mt-4">
+                    <a class="nav-link text-danger" href="/">Siteye Dön</a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="flex-grow-1 p-4">
+            @RenderBody()
+        </div>
+
+
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admin/js/scripts.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+
+
+
+</body>
+</html>

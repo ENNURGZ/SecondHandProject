@@ -1,0 +1,109 @@
+﻿@model SecondHandProject.ViewModels.ProductViewModels.ProductEditViewModel
+
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+    var categories = (ViewBag.Categories as IEnumerable<SecondHandProject.Models.Entities.Category>)
+                     ?? Enumerable.Empty<SecondHandProject.Models.Entities.Category>();
+}
+
+<div class="container mt-4">
+
+    <h2 class="fw-bold mb-4">Ürünü Düzenle</h2>
+
+    <div class="row">
+        <div class="col-md-8">
+
+            <form asp-action="Edit"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ExistingImagePath" />
+
+                <!-- Ürün Adı -->
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label fw-semibold"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <!-- Açıklama -->
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Description"
+                              rows="4"
+                              class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <!-- Fiyat -->
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label fw-semibold"></label>
+                    <input asp-for="Price"
+                           type="number"
+                           step="0.01"
+                           class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <!-- Kategori -->
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label fw-semibold">Kategori</label>
+                    <select asp-for="CategoryId" class="form-select">
+                        @foreach (var c in categories)
+                        {
+                            <option value="@c.Id" selected="@(Model.CategoryId == c.Id)">
+                                @c.Name
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <!-- Mevcut Fotoğraf -->
+                <div class="mb-3">
+                    <label class="fw-semibold d-block mb-2">Mevcut Fotoğraf</label>
+
+                    @if (!string.IsNullOrEmpty(Model.ExistingImagePath))
+                    {
+                        <img src="~/images/products/@Model.ExistingImagePath"
+                             class="img-thumbnail"
+                             style="width:180px; height:180px; object-fit:cover;"
+                             alt="Mevcut Ürün Fotoğrafı" />
+                    }
+                    else
+                    {
+                        <p class="text-muted">Fotoğraf yok.</p>
+                    }
+                </div>
+
+                <!-- Yeni Resim -->
+                <div class="mb-3">
+                    <label asp-for="ImageFile" class="form-label fw-semibold">
+                        Yeni Fotoğraf Yükle
+                    </label>
+                    <input asp-for="ImageFile"
+                           type="file"
+                           class="form-control"
+                           accept="image/*" />
+                </div>
+
+                <!-- Butonlar -->
+                <button type="submit" class="btn btn-primary px-4">
+                    Kaydet
+                </button>
+                <a asp-action="Index"
+                   class="btn btn-secondary px-4 ms-2">
+                    İptal
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

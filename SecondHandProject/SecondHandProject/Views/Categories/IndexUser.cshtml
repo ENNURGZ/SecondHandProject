@@ -1,0 +1,31 @@
+﻿@model IEnumerable<SecondHandProject.Models.Entities.Category>
+
+@{
+    ViewData["Title"] = "Kategoriler";
+}
+
+<div class="container mt-4">
+    <h2 class="fw-bold mb-4">Kategoriler</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Henüz kategori bulunmuyor.
+        </div>
+    }
+    else
+    {
+        <div class="list-group shadow-sm">
+            @foreach (var cat in Model)
+            {
+                <a href="/Home/Index?categoryId=@cat.Id"
+                   class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+
+                    <span>@cat.Name</span>
+
+                    <span class="badge bg-primary rounded-pill">Ürünleri Gör</span>
+                </a>
+            }
+        </div>
+    }
+</div>
