@@ -1,7 +1,7 @@
 # 🛒 SecondHandProject – İkinci El Eşya Satış Platformu
 
 ## 📌 Proje Tanımı
-SecondHandProject, ASP.NET Core MVC kullanılarak geliştirilmiş, kullanıcıların ikinci el ürünlerini ekleyip yönetebildiği; diğer kullanıcıların ise bu ürünleri görüntüleyip filtreleyebildiği bir web uygulamasıdır. Proje, ISE309 Web Programlama dersi kapsamında geliştirilmiştir.
+SecondHandProject, ASP.NET Core MVC kullanılarak geliştirilmiş, kullanıcıların ikinci el ürünlerini ekleyip yönetebildiği; diğer kullanıcıların ise bu ürünleri görüntüleyip filtreleyebildiği bir web uygulamasıdır. 
 
 ---
 
@@ -104,4 +104,5 @@ update-database
 Varsayılan Admin Bilgileri
 Email: admin@secondhand.com
 Şifre: Admin123!
+
 
